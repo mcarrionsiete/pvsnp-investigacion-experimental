@@ -183,6 +183,75 @@ Con asistencia de IA (Perplexity Comet) para generacion y ejecucion de codigo.
 
 ---
 
+---
+
+## SAT Hardness Engine — Aplicacion Practica
+
+Este repositorio ha derivado en una herramienta practica: el **SAT Hardness Engine**.
+
+En vez de intentar resolver P vs NP directamente, el motor convierte la investigacion en algo falsable y util:
+genera instancias 3-SAT, estima su dureza estructural y comprueba si esa estimacion predice
+la dificultad real medida por un solver industrial.
+
+### Ejecutar el pipeline completo en Google Colab
+
+[![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mcarrionsiete/pvsnp-investigacion-experimental/blob/main/notebooks/run_mvp.ipynb)
+
+**Pasos (un clic en Colab):**
+1. Abre el badge de arriba
+2. En Colab: `Runtime > Run all`
+3. El notebook hace todo solo:
+   - Clona este repositorio
+   - Instala dependencias
+   - Genera 1.000+ instancias 3-SAT
+   - Calcula hardness score v0.1
+   - Ejecuta benchmark con Glucose4
+   - Mide correlaciones score vs tiempo/conflictos
+   - Genera 4 graficas
+   - Exporta CSV a `results/runs/mvp_run_v1.csv`
+
+### Estructura del motor
+
+```
+src/
+  generator.py   <- genera instancias 3-SAT aleatorias
+  features.py    <- extrae rasgos estructurales
+  scoring.py     <- calcula hardness score v0.1
+  benchmark.py   <- ejecuta Glucose4 y mide tiempo/conflictos
+  export.py      <- guarda resultados en CSV
+  cli.py         <- pipeline completo de punta a punta
+tests/
+  test_generator.py
+  test_features.py
+  test_scoring.py
+notebooks/
+  run_mvp.ipynb  <- notebook Colab para ejecutar todo
+```
+
+### Hardness Score v0.1
+
+El score combina 4 senales estructurales de la formula 3-SAT:
+
+| Feature | Peso | Que mide |
+|---|---|---|
+| Cercania al punto critico (alpha=4.267) | 0.40 | Zona de maxima dificultad |
+| Balance literales positivos/negativos | 0.20 | Simetria de la formula |
+| Dispersion de frecuencia de variables | 0.20 | Variables dominantes |
+| Unicidad de clausulas | 0.20 | Redundancia estructural |
+
+### Issues abiertos (proximos pasos)
+
+| # | Tarea | Estado |
+|---|---|---|
+| [#1](../../issues/1) | Baseline trivial para comparacion | Abierto |
+| [#2](../../issues/2) | Segundo solver para robustez | Abierto |
+| [#3](../../issues/3) | Dataset 1000+ instancias | Abierto |
+| [#4](../../issues/4) | Analisis sistematico de correlacion | Abierto |
+| [#5](../../issues/5) | Detectar falsos positivos | Abierto |
+| [#6](../../issues/6) | CI con pytest | Abierto |
+| [#7](../../issues/7) | Notebook de validacion | Abierto |
+| [#8](../../issues/8) | Ajuste de pesos del score | Abierto |
+
 ## Licencia
 
 MIT License — ver [LICENSE](LICENSE) para detalles.
