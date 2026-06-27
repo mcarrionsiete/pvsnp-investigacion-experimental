@@ -49,9 +49,10 @@ editor de texto (incluso el Bloc de notas) y cambia lo que necesites:
 - **Horarios** → edita `horario` (tramos de cada día; día vacío `[]` = cerrado).
 - **Bloqueo de 24 h** → cambia `horasBloqueo` (por ejemplo a `48`).
 
-> Los **precios y servicios son de ejemplo**. Sustitúyelos por los reales de
-> Booksy. (No pude leer la página de Booksy automáticamente, así que puse
-> valores típicos de barbería para que Mario los ajuste.)
+> Los **servicios y precios ya son los reales de Booksy** (junio 2026). Si
+> cambian, edítalos aquí. Nota: el servicio "Corte mayores 65" en Booksy es
+> *solo mañanas*; en el simulador se ofrece en cualquier hueco (si quieres
+> limitarlo a mañanas, dímelo y lo añado).
 
 ---
 

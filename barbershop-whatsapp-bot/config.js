@@ -11,8 +11,8 @@ const CONFIG = {
   // --- Datos del negocio -------------------------------------------------
   negocio: {
     nombre: "The Barber Mario Piqueras",
-    direccion: "C/ Ejemplo 12, tu ciudad",   // <-- pon tu dirección real
-    telefono: "+34 600 000 000",             // <-- pon tu teléfono real
+    direccion: "Pl. de Raquel Payà Pedagoga, 8, Quatre Carreres, 46006 València",
+    telefono: "+34 675 576 200",
     moneda: "€",
   },
 
@@ -24,14 +24,14 @@ const CONFIG = {
   ],
 
   // --- Servicios (nombre, duración en minutos, precio) -------------------
-  // La duración se usa para calcular los huecos libres en la agenda.
+  // Datos reales de Booksy. La duración se usa para calcular los huecos.
   servicios: [
-    { id: "corte",     nombre: "Corte de pelo",        duracion: 30, precio: 12 },
-    { id: "cortebarba",nombre: "Corte + barba",        duracion: 45, precio: 18 },
-    { id: "barba",     nombre: "Arreglo de barba",     duracion: 20, precio: 8  },
-    { id: "nino",      nombre: "Corte niño",           duracion: 30, precio: 10 },
-    { id: "rapado",    nombre: "Rapado a máquina",     duracion: 20, precio: 9  },
-    { id: "afeitado",  nombre: "Afeitado tradicional", duracion: 30, precio: 14 },
+    { id: "corte",        nombre: "Corte de caballero",            duracion: 30, precio: 17 },
+    { id: "cortebarba",   nombre: "Corte de caballero + barba",    duracion: 30, precio: 22 },
+    { id: "cortebarbacejas", nombre: "Corte + barba + cejas",      duracion: 30, precio: 25 },
+    { id: "barba",        nombre: "Corte de barba (solo barba)",   duracion: 30, precio: 12 },
+    { id: "nino",         nombre: "Corte niño",                    duracion: 30, precio: 15 },
+    { id: "mayores",      nombre: "Corte mayores 65 (solo mañanas)", duracion: 30, precio: 12 },
   ],
 
   // --- Horario de apertura ----------------------------------------------
