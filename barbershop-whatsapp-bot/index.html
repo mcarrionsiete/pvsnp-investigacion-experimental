@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador WhatsApp · The Barber Mario Piqueras</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Panel de profesor: para enseñar y probar (Mario puede ignorarlo en el día a día) -->
+  <aside class="panel">
+    <h2>🧪 Panel de demostración</h2>
+    <p>Solo para practicar. Tus clientes no verían esto.</p>
+    <label>Simular fecha y hora "de hoy":
+      <input type="datetime-local" id="fakeNow">
+    </label>
+    <small>Úsalo para ver la regla de las 24&nbsp;h sin esperar.</small>
+    <button id="reset">🔄 Reiniciar demo (borrar citas)</button>
+    <div class="tip">
+      <strong>Cómo probar:</strong>
+      <ol>
+        <li>Pulsa <em>Reservar cita</em> y reserva un hueco.</li>
+        <li>Entra en <em>Ver / cancelar cita</em> e intenta cancelarla.</li>
+        <li>Pon la fecha simulada a pocas horas antes de una cita y prueba a cancelar: el bot lo bloqueará.</li>
+      </ol>
+    </div>
+  </aside>
+
+  <!-- Teléfono con WhatsApp -->
+  <main class="phone">
+    <header class="wa-header">
+      <div class="avatar">💈</div>
+      <div class="who">
+        <div class="name">The Barber Mario Piqueras</div>
+        <div class="status">en línea · asistente de citas</div>
+      </div>
+    </header>
+
+    <div class="chat" id="chat"></div>
+
+    <div class="quick" id="quick"></div>
+
+    <footer class="wa-footer">
+      <input id="input" type="text" placeholder="Escribe un mensaje… (o pulsa un botón)" autocomplete="off">
+      <button id="send" aria-label="Enviar">➤</button>
+    </footer>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="engine.js"></script>
+  <script src="bot.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
