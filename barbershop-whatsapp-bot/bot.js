@@ -17,8 +17,10 @@ const Bot = (() => {
   const M = CONFIG.negocio.moneda;
 
   // --- Helpers para construir respuestas --------------------------------
-  function msg(texto, botones = []) {
-    return { texto, botones };   // botones: [{ etiqueta, valor }]
+  function msg(texto, botones = [], enlaces = []) {
+    // botones: [{ etiqueta, valor }]  -> responden al bot (mensajes rápidos)
+    // enlaces: [{ etiqueta, url }]    -> abren una web (p. ej. Google Calendar)
+    return { texto, botones, enlaces };
   }
   function precio(p) { return `${p}${M}`; }
 
@@ -219,13 +221,17 @@ const Bot = (() => {
       telefono: CLIENTE.telefono,
     });
     estado = "INICIO"; borrador = {};
+    const enlaceCalendario = Agenda.enlaceGoogleCalendar(cita);
     return [
       msg(`✅ *¡Cita confirmada!*\n\n` +
         `💈 ${cita.peluqueroNombre}\n` +
         `✂️ ${cita.servicioNombre}\n` +
         `📅 ${Agenda.fechaBonita(Agenda.fechaHoraDeCita(cita))}\n` +
         `🕒 ${cita.hora}\n\n` +
-        `Recibirás un recordatorio. Recuerda: para *cancelar o cambiar* necesitas avisar con al menos ` +
+        `¿Quieres guardarla en tu calendario? 👇`,
+        [],
+        [{ etiqueta: "📆 Añadir a Google Calendar", url: enlaceCalendario }]),
+      msg(`Recibirás un recordatorio. Recuerda: para *cancelar o cambiar* necesitas avisar con al menos ` +
         `*${CONFIG.horasBloqueo} h* de antelación. ¡Te esperamos! 💈`),
       menuPrincipal(),
     ];

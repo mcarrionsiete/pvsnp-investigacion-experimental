@@ -22,11 +22,19 @@ function formatear(texto) {
     .replace(/\n/g, "<br>");
 }
 
-function pintarMensaje(texto, quien) {
+function pintarMensaje(texto, quien, enlaces) {
   const burbuja = document.createElement("div");
   burbuja.className = "msg " + (quien === "bot" ? "bot" : "user");
-  burbuja.innerHTML = `<div class="txt">${formatear(texto)}</div>` +
-                      `<span class="time">${horaActual()}${quien === "user" ? " ✓✓" : ""}</span>`;
+  let html = `<div class="txt">${formatear(texto)}</div>`;
+  // Botones-enlace (abren una web, p. ej. Google Calendar). Van DENTRO de la
+  // burbuja para que queden fijos en el historial del chat.
+  if (enlaces && enlaces.length) {
+    html += `<div class="links">` + enlaces.map(e =>
+      `<a class="link-btn" href="${e.url}" target="_blank" rel="noopener">${e.etiqueta}</a>`
+    ).join("") + `</div>`;
+  }
+  html += `<span class="time">${horaActual()}${quien === "user" ? " ✓✓" : ""}</span>`;
+  burbuja.innerHTML = html;
   chat.appendChild(burbuja);
   chat.scrollTop = chat.scrollHeight;
 }
@@ -64,7 +72,7 @@ async function responder(mensajes) {
     indicadorEscribiendo();
     await espera(450 + Math.random() * 350);
     quitarEscribiendo();
-    pintarMensaje(mensajes[i].texto, "bot");
+    pintarMensaje(mensajes[i].texto, "bot", mensajes[i].enlaces);
     if (mensajes[i].botones && mensajes[i].botones.length) {
       pintarBotones(mensajes[i].botones);
     }

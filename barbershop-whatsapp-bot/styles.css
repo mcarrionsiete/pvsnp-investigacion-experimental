@@ -107,6 +107,16 @@ body {
   font-size: 10.5px; color: #888;
 }
 
+/* --- Botones-enlace dentro de la burbuja (Google Calendar, etc.) --- */
+.msg .links { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.link-btn {
+  display: inline-block; text-decoration: none;
+  background: var(--wa-teal); color: #fff;
+  border-radius: 18px; padding: 8px 14px;
+  font-size: 13px; font-weight: 600;
+}
+.link-btn:hover { background: var(--wa-green); }
+
 /* indicador "escribiendo…" */
 .msg.typing .txt { display: flex; gap: 4px; padding: 2px 0; }
 .dot {
