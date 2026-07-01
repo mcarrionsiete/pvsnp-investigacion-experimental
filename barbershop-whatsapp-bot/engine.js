@@ -177,6 +177,32 @@ const Agenda = (() => {
     guardarCitas(citas);
   }
 
+  // --- Enlace "Añadir a Google Calendar" --------------------------------
+  // Construye una URL de plantilla de Google Calendar con la cita ya
+  // rellenada. No necesita API ni claves: funciona con la cuenta de Google
+  // de cualquier cliente (le abre el calendario con "Guardar").
+  function enlaceGoogleCalendar(cita) {
+    const inicio = fechaHoraDeCita(cita);
+    const fin = new Date(inicio.getTime() + cita.duracion * 60000);
+    const pad = n => String(n).padStart(2, "0");
+    const fmt = d =>
+      `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T` +
+      `${pad(d.getHours())}${pad(d.getMinutes())}00`;
+
+    const params = new URLSearchParams({
+      action: "TEMPLATE",
+      text: `Cita en ${CONFIG.negocio.nombre}`,
+      dates: `${fmt(inicio)}/${fmt(fin)}`,
+      details:
+        `Servicio: ${cita.servicioNombre} (${cita.precio}${CONFIG.negocio.moneda})\n` +
+        `Peluquero: ${cita.peluqueroNombre}\n` +
+        `Teléfono: ${CONFIG.negocio.telefono}`,
+      location: CONFIG.negocio.direccion,
+      ctz: "Europe/Madrid",   // interpreta la hora en horario de España
+    });
+    return "https://calendar.google.com/calendar/render?" + params.toString();
+  }
+
   // --- API pública -------------------------------------------------------
   return {
     ahora, setAhora, borrarTodo,
@@ -184,6 +210,6 @@ const Agenda = (() => {
     servicioPorId, peluqueroPorId,
     diasConDisponibilidad, huecosLibres,
     crearCita, citasDeTelefono, puedeCancelar, cancelarCita,
-    cargarCitas,
+    enlaceGoogleCalendar, cargarCitas,
   };
 })();
